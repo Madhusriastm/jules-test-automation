@@ -1,4 +1,4 @@
-// LoginTest.java
+package com.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +11,12 @@ import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginTest {
+public class NegativeLoginTests {
 
     private WebDriver driver;
-    private String loginPageUrl = "http://localhost/login"; // Placeholder URL
-    private String dashboardUrl = "http://localhost/dashboard"; // Placeholder Dashboard URL
-    private String invalidCredentialsErrorMessageText = "Invalid username or password"; // Renamed for clarity
-    private String blankCredentialsErrorMessageText = "Username and Password cannot be blank"; // New specific message
+    private String loginPageUrl = "http://localhost/login";
+    private String invalidCredentialsErrorMessageText = "Invalid username or password";
+    private String blankCredentialsErrorMessageText = "Username and Password cannot be blank";
 
     @BeforeMethod
     public void setUp() {
@@ -28,36 +27,15 @@ public class LoginTest {
     }
 
     @Test
-    public void testValidLogin() {
-        WebElement usernameField = driver.findElement(By.id("username"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement loginButton = driver.findElement(By.id("loginButton"));
-
-        usernameField.sendKeys("testuser");
-        passwordField.sendKeys("testpassword");
-        loginButton.click();
-
-        // Wait for a bit for the page to load, ideally use explicit waits in real scenarios
-        try {
-            Thread.sleep(2000); // Simple wait, replace with explicit wait if possible
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertEquals(driver.getCurrentUrl(), dashboardUrl, "Login was not successful or redirection failed.");
-    }
-
-    @Test
     public void testInvalidLoginWrongPassword() {
         WebElement usernameField = driver.findElement(By.id("username"));
         WebElement passwordField = driver.findElement(By.id("password"));
         WebElement loginButton = driver.findElement(By.id("loginButton"));
 
         usernameField.sendKeys("testuser");
-        passwordField.sendKeys("wrongpassword"); // Invalid password
+        passwordField.sendKeys("wrongpassword");
         loginButton.click();
 
-        // Wait for a bit for the error message to appear, ideally use explicit waits
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -74,7 +52,6 @@ public class LoginTest {
         WebElement loginButton = driver.findElement(By.id("loginButton"));
         loginButton.click();
 
-        // Wait for a bit for the error message to appear
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
